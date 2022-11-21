@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
+	"os"
 )
 
 // 1.2.2 Write an Interval1D client that takes an int value N as command-line
@@ -40,7 +41,7 @@ type OverlappingRange struct {
 
 func run() error {
 	var linesOfPairs int
-	_, err := fmt.Scanf("%d", &linesOfPairs)
+	_, err := fmt.Fscanf(os.Stdin, "%d", &linesOfPairs)
 	if err != nil {
 		return err
 	}
@@ -48,7 +49,7 @@ func run() error {
 	ranges := make([]Range, 0, linesOfPairs)
 	for i := 0; i < linesOfPairs; i++ {
 		var start, end float64
-		_, err := fmt.Scanf("%f %f", &start, &end)
+		_, err := fmt.Fscanf(os.Stdin, "%f %f", &start, &end)
 		if err != nil {
 			return err
 		}
