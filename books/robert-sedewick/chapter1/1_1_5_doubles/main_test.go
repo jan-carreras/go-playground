@@ -1,4 +1,4 @@
-package __1_5_doubles
+package main
 
 import (
 	"github.com/stretchr/testify/require"

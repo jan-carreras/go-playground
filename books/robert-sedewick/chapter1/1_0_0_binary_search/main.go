@@ -1,4 +1,4 @@
-package __0_0_binary_search
+package main
 
 func Search(lst []int, n int) int {
 	lo, mid, hi := 0, len(lst)/2, len(lst)-1

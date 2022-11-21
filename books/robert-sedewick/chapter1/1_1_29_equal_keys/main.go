@@ -1,4 +1,4 @@
-package __1_29_equal_keys
+package main
 
 import (
 	"sort"

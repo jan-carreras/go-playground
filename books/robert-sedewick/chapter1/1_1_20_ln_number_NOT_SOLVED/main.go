@@ -1,4 +1,4 @@
-package __1_20_ln_number__
+package main
 
 // 1.1.20 Write a recursive static method that computes the value of: ln(N!)
 

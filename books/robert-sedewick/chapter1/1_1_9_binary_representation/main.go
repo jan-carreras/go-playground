@@ -1,4 +1,4 @@
-package __1_9_binary_representation
+package main
 
 import (
 	"bytes"

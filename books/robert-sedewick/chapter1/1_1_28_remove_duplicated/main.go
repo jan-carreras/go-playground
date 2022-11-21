@@ -1,4 +1,4 @@
-package __1_28_remove_duplicated
+package main
 
 import "sort"
 

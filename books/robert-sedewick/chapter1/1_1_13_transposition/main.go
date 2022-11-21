@@ -1,4 +1,4 @@
-package __1_13_transposition
+package main
 
 import (
 	"bytes"

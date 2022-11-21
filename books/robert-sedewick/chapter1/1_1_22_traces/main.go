@@ -1,4 +1,4 @@
-package __1_22_traces
+package main
 
 import (
 	"fmt"

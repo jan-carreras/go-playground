@@ -1,4 +1,4 @@
-package __1_21_grades
+package main
 
 import (
 	"github.com/stretchr/testify/require"

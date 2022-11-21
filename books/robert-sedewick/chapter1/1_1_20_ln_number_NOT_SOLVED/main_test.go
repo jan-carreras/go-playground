@@ -1,4 +1,4 @@
-package __1_20_ln_number__
+package main
 
 import (
 	"fmt"

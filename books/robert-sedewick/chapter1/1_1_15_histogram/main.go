@@ -1,4 +1,4 @@
-package __1_15_histogram
+package main
 
 func Histogram(lst []int, m int) []int {
 	output := make([]int, m)

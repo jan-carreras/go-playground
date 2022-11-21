@@ -1,4 +1,4 @@
-package __1_14_lg
+package main
 
 import (
 	"github.com/stretchr/testify/require"

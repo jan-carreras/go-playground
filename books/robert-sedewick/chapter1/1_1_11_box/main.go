@@ -1,4 +1,4 @@
-package __1_11_box
+package main
 
 import (
 	"bytes"

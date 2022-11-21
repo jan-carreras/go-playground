@@ -1,4 +1,4 @@
-package __1_15_histogram
+package main
 
 import (
 	"github.com/stretchr/testify/require"

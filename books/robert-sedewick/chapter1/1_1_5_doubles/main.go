@@ -1,4 +1,4 @@
-package __1_5_doubles
+package main
 
 func BetweenRange(a float64) bool {
 	return a >= 0 && a <= 1
