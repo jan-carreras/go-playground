@@ -1,7 +1,6 @@
-package _0_generic_list_test
+package main_test
 
 import (
-	"exercises/books/robert-sedewick/chapter1/3_bags_queues_stacks/00_generic_list"
 	"github.com/stretchr/testify/require"
 	"testing"
 )

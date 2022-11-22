@@ -1,4 +1,4 @@
-package _0_generic_list
+package main
 
 type Node[T any] struct {
 	Value T
