@@ -1,7 +1,7 @@
 package stack_test
 
 import (
-	stack "exercises/books/robert-sedewick/chapter1/3_bags_queues_stacks/generic_stack"
+	stack "exercises/books/robert-sedewick/chapter1/3_bags_queues_stacks/00_generic_stack"
 	"github.com/stretchr/testify/require"
 	"testing"
 )
