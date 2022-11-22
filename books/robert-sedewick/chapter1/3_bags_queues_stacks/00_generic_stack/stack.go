@@ -1,5 +1,10 @@
 package stack
 
+import (
+	"bytes"
+	"fmt"
+)
+
 // Possible improvements: do not panic, return a custom error instead
 
 type Stack[T any] struct {
@@ -27,4 +32,17 @@ func (s *Stack[T]) Pop() T {
 
 	s.length--
 	return n.value
+}
+
+func (s *Stack[T]) String() string {
+
+	buf := bytes.Buffer{}
+
+	n := s.first
+	for n != nil {
+		buf.WriteString(fmt.Sprintf("--> %v ", n.value))
+		n = n.next
+	}
+
+	return buf.String()
 }
