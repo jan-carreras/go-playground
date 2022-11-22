@@ -1,4 +1,4 @@
-package main
+package _9_remove_last_node
 
 import (
 	"github.com/stretchr/testify/require"

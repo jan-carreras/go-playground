@@ -1,4 +1,4 @@
-package _9_remove_last_node
+package _0_remove_k_node
 
 import (
 	"bytes"
@@ -13,6 +13,49 @@ type Node[T any] struct {
 type List[T any] struct {
 	first, last *Node[T]
 	length      int
+}
+
+// RemoveK removed the Kth element. k is 0 index
+func (l *List[T]) RemoveK(k int) {
+	// We're trying to remove an element out of bounds. NoOp.
+	if k > l.length {
+		return
+	}
+
+	// Removing the first element is an edge case
+	if k == 0 {
+		l.first = l.first.Next
+		l.length--
+
+		// More edge cases: If the new length is 0, both l.first and l.last must point at
+		// the same place
+		if l.length == 0 {
+			l.last = l.first
+		}
+
+		return
+	}
+
+	// Locate the node BEFORE k
+	n := l.first
+	for i := 0; i < k-1; i++ {
+		n = n.Next
+		if n == nil {
+			// This should not be possible, really. We've checked if we're in bounds, but
+			// you never are sure enough
+			return
+		}
+	}
+
+	// Remove the actual node
+	n.Next = n.Next.Next
+	l.length--
+
+	// If we have removed the last node, we need to point l.last to that Node
+	if n.Next == nil {
+		l.last = n
+	}
+
 }
 
 func (l *List[T]) RemoveLast() {
