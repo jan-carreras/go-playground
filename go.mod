@@ -4,6 +4,7 @@ go 1.19
 
 require (
 	github.com/fogleman/gg v1.3.0
+	github.com/go-echarts/go-echarts/v2 v2.2.4
 	github.com/stretchr/testify v1.8.1
 	golang.org/x/sync v0.1.0
 )
