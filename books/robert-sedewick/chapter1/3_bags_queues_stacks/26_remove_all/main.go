@@ -5,9 +5,9 @@ import (
 	"fmt"
 )
 
-// 1.3.24 Write a method removeAfter() that takes a linked-list Node as argument
-// and removes the node following the given one (and does nothing if the argument
-// or the next field in the argument node is null).
+// 1.3.24 Write a method remove() that takes a linked list and a string key as
+// arguments and removes all the nodes in the list that have key as its item
+// field.
 
 type Node[T comparable] struct {
 	Value T
