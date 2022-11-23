@@ -1,4 +1,4 @@
-package _6_remove_all
+package main
 
 import (
 	"bytes"
@@ -35,8 +35,9 @@ func (l *List[T]) String() string {
 
 // RemoveAll this method should not exist! It exposes the internals of the linked list!
 // TODO: The problem with this implementation is that we need to iterate the entire List
-//       for each deletion, instead of doing it in-place. If we want to remove it InPlace
-//       we could be using a RemoveAfter function to achieve the same goal
+//
+//	for each deletion, instead of doing it in-place. If we want to remove it InPlace
+//	we could be using a RemoveAfter function to achieve the same goal
 func (l *List[T]) RemoveAll(key T) {
 	for l.first != nil && l.first.Value == key {
 		l.RemoveK(0)

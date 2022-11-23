@@ -1,4 +1,4 @@
-package _5_insert_after
+package main
 
 import (
 	"github.com/stretchr/testify/require"

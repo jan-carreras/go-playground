@@ -1,4 +1,4 @@
-package _6_remove_all
+package main
 
 import (
 	"github.com/stretchr/testify/require"
