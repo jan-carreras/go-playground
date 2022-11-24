@@ -1,20 +1,23 @@
 package main
 
-import stack "exercises/books/robert-sedewick/chapter1/3_bags_queues_stacks/00_generic_stack"
+import (
+	adt "exercises/books/robert-sedewick/chapter1/3_bags_queues_stacks/00_adt"
+)
 
 func BalancedParentheses(input string) bool {
 	openClose, closeOpen := openClosePairs()
 
-	st := stack.Stack[rune]{}
+	st := adt.NewTypeStack[rune]()
+
 	for _, r := range input {
 		if _, ok := openClose[r]; ok {
 			st.Push(r)
 		} else if counter, ok := closeOpen[r]; ok {
-			if st.Length() == 0 {
+			if st.Len() == 0 {
 				return false
 			}
 
-			matching := st.Pop()
+			matching := st.SPop()
 			if counter != matching {
 				return false
 			}
