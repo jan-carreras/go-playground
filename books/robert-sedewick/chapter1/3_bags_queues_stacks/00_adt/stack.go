@@ -12,6 +12,10 @@ type Stack struct {
 	list list.List
 }
 
+func NewStack() *Stack {
+	return &Stack{}
+}
+
 func (s *Stack) Push(v any) {
 	s.list.PushFront(v)
 }

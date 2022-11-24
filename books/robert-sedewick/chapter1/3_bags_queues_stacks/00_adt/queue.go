@@ -12,6 +12,10 @@ type Queue struct {
 	list list.List
 }
 
+func NewQueue() *Queue {
+	return &Queue{}
+}
+
 func (q *Queue) Len() int {
 	return q.list.Len()
 }

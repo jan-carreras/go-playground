@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/golang-collections/collections/stack"
+	adt "exercises/books/robert-sedewick/chapter1/3_bags_queues_stacks/00_adt"
 	"io"
 	"math"
 	"strconv"
@@ -12,7 +12,8 @@ import (
 
 // ( 1 + ( ( 2 + 3 ) * ( 4 * 5 ) ) )
 func Compute(s io.Reader) (float64, error) {
-	ops, oper := stack.New(), stack.New()
+	ops, oper := adt.NewTypeStack[string](), adt.NewTypeStack[float64]()
+
 	input, err := io.ReadAll(s)
 	if err != nil {
 		return 0, err
@@ -24,22 +25,22 @@ func Compute(s io.Reader) (float64, error) {
 		case "+", "-", "*", "/", "sqrt":
 			ops.Push(c)
 		case ")": // We can perform the operation!
-			op := ops.Pop().(string)
+			op := ops.SPop()
 			switch op {
 			case "+":
-				operB, operA := oper.Pop().(float64), oper.Pop().(float64)
+				operB, operA := oper.SPop(), oper.SPop()
 				oper.Push(operA + operB)
 			case "-":
-				operB, operA := oper.Pop().(float64), oper.Pop().(float64)
+				operB, operA := oper.SPop(), oper.SPop()
 				oper.Push(operA - operB)
 			case "*":
-				operB, operA := oper.Pop().(float64), oper.Pop().(float64)
+				operB, operA := oper.SPop(), oper.SPop()
 				oper.Push(operA * operB)
 			case "/":
-				divisor, dividend := oper.Pop().(float64), oper.Pop().(float64)
+				divisor, dividend := oper.SPop(), oper.SPop()
 				oper.Push(dividend / divisor)
 			case "sqrt":
-				o := oper.Pop().(float64)
+				o := oper.SPop()
 				oper.Push(math.Sqrt(o))
 			}
 
@@ -53,5 +54,5 @@ func Compute(s io.Reader) (float64, error) {
 		}
 	}
 
-	return oper.Pop().(float64), nil
+	return oper.SPop(), nil
 }
