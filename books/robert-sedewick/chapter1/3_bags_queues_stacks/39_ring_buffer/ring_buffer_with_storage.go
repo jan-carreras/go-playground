@@ -39,8 +39,8 @@ func NewWithStorage[T any](ctx context.Context, capacity int) *RingBufferStorage
 }
 
 func (r *RingBufferStorage[T]) closeAll() {
-	close(r.incoming)
-	close(r.outgoing)
+	//close(r.incoming)
+	//close(r.outgoing)
 	r.cancel()
 	r.data = nil
 }
@@ -49,7 +49,7 @@ func (r *RingBufferStorage[T]) in() {
 	for {
 		for r.length == cap(r.data) {
 			// TODO: How can we prevent this? 🤔More channels? :facepalm?
-			time.Sleep(100 * time.Millisecond) // Waiting for someone to read...
+			time.Sleep(1 * time.Millisecond) // Waiting for someone to read...
 		}
 
 		select {
@@ -68,12 +68,12 @@ func (r *RingBufferStorage[T]) in() {
 func (r *RingBufferStorage[T]) out() {
 	for {
 		for r.length == 0 {
-			time.Sleep(100 * time.Millisecond)
+			time.Sleep(1 * time.Millisecond)
 		}
 
 		v := r.data[r.read]
-		r.read++
-		r.length--
+        r.read = (r.read + 1) % cap(r.data)
+        r.length--
 
 		select {
 		case r.outgoing <- v: // Blocking until someone reads

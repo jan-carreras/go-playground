@@ -69,6 +69,7 @@ func TestRingBuffer_SlowReader(t *testing.T) {
 
 	ring := ring_buffer.NewWithStorage[int](ctx, 10)
 
+    wg.Add(1)
 	go func() {
 		defer wg.Done()
 		for i := 0; i < ioOperations; i++ {
@@ -77,6 +78,7 @@ func TestRingBuffer_SlowReader(t *testing.T) {
 
 	}()
 
+    wg.Add(1)
 	go func() {
 		defer wg.Done()
 
