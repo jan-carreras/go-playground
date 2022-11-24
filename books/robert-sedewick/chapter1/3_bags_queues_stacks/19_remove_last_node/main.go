@@ -1,9 +1,12 @@
-package _9_remove_last_node
+package main
 
 import (
 	"bytes"
 	"fmt"
 )
+
+// 1.3.19 Give a code fragment that removes the last node in a linked list whose
+// first node is `first`.
 
 type Node[T any] struct {
 	Value T

@@ -1,15 +1,13 @@
 package adt
 
 import (
-	"container/list"
 	"errors"
-	format "exercises/books/robert-sedewick/chapter1/3_bags_queues_stacks/00_format"
 )
 
 var ErrEmptyQueue = errors.New("empty queue")
 
 type Queue struct {
-	list list.List
+	list List
 }
 
 func NewQueue() *Queue {
@@ -36,5 +34,5 @@ func (q *Queue) Dequeue() (any, error) {
 }
 
 func (q *Queue) String() string {
-	return format.List(q.list)
+	return String(q.list)
 }

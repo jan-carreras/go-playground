@@ -1,12 +1,11 @@
-package format
+package adt
 
 import (
-	"container/list"
 	"fmt"
 	"strings"
 )
 
-func List(l list.List) string {
+func String(l List) string {
 	b := strings.Builder{}
 
 	n := l.Front()

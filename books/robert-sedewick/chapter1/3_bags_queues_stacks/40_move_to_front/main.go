@@ -2,7 +2,7 @@ package main
 
 import (
 	"container/list"
-	format "exercises/books/robert-sedewick/chapter1/3_bags_queues_stacks/00_format"
+	format "exercises/books/robert-sedewick/chapter1/3_bags_queues_stacks/00_adt"
 )
 
 // 1.3.40 Move-to-front. Read in a sequence of characters from standard input and
@@ -35,5 +35,5 @@ func (m *MoveToFront) remove(v any) {
 }
 
 func (m *MoveToFront) String() string {
-	return format.List(m.list)
+	return format.String(m.list)
 }

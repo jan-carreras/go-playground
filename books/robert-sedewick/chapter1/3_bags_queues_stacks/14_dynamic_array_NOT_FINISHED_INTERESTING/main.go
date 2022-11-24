@@ -23,6 +23,17 @@ func (q *Queue) Enqueue(s string) {
 	fmt.Println(">", q.length, q.capacity, q.arr)
 }
 
+func (q *Queue) Dequeue() string {
+	if q.length == 0 {
+		panic("nothing else to return")
+	}
+	res := q.arr[q.length]
+	q.length--
+
+	fmt.Println("<", q.length, q.capacity, q.arr)
+	return res
+}
+
 func (q *Queue) atCapacity() bool {
 	return q.capacity == q.length
 }
@@ -38,15 +49,4 @@ func (q *Queue) resize(newSize int) {
 	resized := make([]string, newSize)
 	copy(resized, q.arr)
 	q.arr = resized
-}
-
-func (q *Queue) Dequeue() string {
-	if q.length == 0 {
-		panic("nothing else to return")
-	}
-	res := q.arr[q.length]
-	q.length--
-
-	fmt.Println("<", q.length, q.capacity, q.arr)
-	return res
 }

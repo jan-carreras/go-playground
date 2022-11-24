@@ -3,7 +3,7 @@ package main
 import (
 	"container/list"
 	"errors"
-	format "exercises/books/robert-sedewick/chapter1/3_bags_queues_stacks/00_format"
+	format "exercises/books/robert-sedewick/chapter1/3_bags_queues_stacks/00_adt"
 )
 
 // Copy a queue. Create a new constructor so that:
@@ -58,5 +58,5 @@ func (q *Queue) Dequeue() (any, error) {
 }
 
 func (q *Queue) String() string {
-	return format.List(q.list)
+	return format.String(q.list)
 }

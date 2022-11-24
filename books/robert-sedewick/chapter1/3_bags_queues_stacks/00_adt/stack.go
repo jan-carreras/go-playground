@@ -1,15 +1,13 @@
 package adt
 
 import (
-	"container/list"
 	"errors"
-	format "exercises/books/robert-sedewick/chapter1/3_bags_queues_stacks/00_format"
 )
 
 var ErrEmptyStack = errors.New("empty stack")
 
 type Stack struct {
-	list list.List
+	list List
 }
 
 func NewStack() *Stack {
@@ -35,5 +33,5 @@ func (s *Stack) Len() int {
 }
 
 func (s *Stack) String() string {
-	return format.List(s.list)
+	return String(s.list)
 }

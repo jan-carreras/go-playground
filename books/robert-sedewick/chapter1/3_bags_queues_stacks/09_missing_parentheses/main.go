@@ -1,7 +1,7 @@
 package main
 
 import (
-	stack "exercises/books/robert-sedewick/chapter1/3_bags_queues_stacks/00_generic_stack"
+	adt "exercises/books/robert-sedewick/chapter1/3_bags_queues_stacks/00_adt"
 	"fmt"
 	"strings"
 )
@@ -20,16 +20,15 @@ import (
 //
 
 func BalanceParentheses(input string) string {
-	operators := new(stack.Stack[string])
-	operands := new(stack.Stack[string])
+	operators, operands := adt.NewTypeStack[string](), adt.NewTypeStack[string]()
 
 	for _, token := range strings.Split(input, " ") {
 		switch token {
 		case "*", "-", "+", "/":
 			operators.Push(token)
 		case ")":
-			op := operators.Pop()
-			b, a := operands.Pop(), operands.Pop()
+			op := operators.SPop()
+			b, a := operands.SPop(), operands.SPop()
 			operands.Push(fmt.Sprintf("( %s %s %s )", a, op, b))
 		// Balance parenthesis
 		default:
@@ -37,5 +36,5 @@ func BalanceParentheses(input string) string {
 		}
 	}
 
-	return operands.Pop()
+	return operands.SPop()
 }

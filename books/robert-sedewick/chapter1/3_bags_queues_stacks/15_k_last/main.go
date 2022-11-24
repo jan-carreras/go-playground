@@ -3,7 +3,7 @@ package main
 import (
 	"bufio"
 	"errors"
-	stack "exercises/books/robert-sedewick/chapter1/3_bags_queues_stacks/00_generic_stack"
+	adt "exercises/books/robert-sedewick/chapter1/3_bags_queues_stacks/00_adt"
 	"flag"
 	"fmt"
 	"io"
@@ -22,22 +22,22 @@ func main() {
 }
 
 func Tail(input io.Reader, output io.Writer, k int) error {
-	s := new(stack.Stack[string])
+	s := adt.NewTypeStack[string]()
 
 	if err := readLines(input, s); err != nil {
 		return fmt.Errorf("readLines: %v", err)
 	}
 
-	if k >= s.Length() {
+	if k >= s.Len() {
 		return errors.New("not enough lines")
 	}
 
 	// Discard k-1 elements
 	for i := 0; i < k; i++ {
-		s.Pop()
+		s.SPop()
 	}
 
-	_, err := fmt.Fprintf(output, "the %dth line is: %s\n", k, s.Pop())
+	_, err := fmt.Fprintf(output, "the %dth line is: %s\n", k, s.SPop())
 	if err != nil {
 		return err
 	}
@@ -45,7 +45,7 @@ func Tail(input io.Reader, output io.Writer, k int) error {
 	return nil
 }
 
-func readLines(input io.Reader, s *stack.Stack[string]) error {
+func readLines(input io.Reader, s *adt.TypeStack[string]) error {
 	scanner := bufio.NewScanner(input)
 	for scanner.Scan() {
 		s.Push(scanner.Text())
