@@ -2,13 +2,17 @@ package three_sum
 
 import (
 	"github.com/stretchr/testify/require"
+	"math/rand"
 	"os"
 	"strconv"
 	"strings"
 	"testing"
+	"time"
 )
 
 func TestThreeSum(t *testing.T) {
+	rand.Seed(time.Now().UnixMilli())
+
 	input := readFile(t, "./testdata/1Kints.txt")
 	require.Equal(t, 70, ThreeSum(input))
 
@@ -39,7 +43,7 @@ func readFile(t *testing.T, filename string) []int {
 
 		n, err := strconv.Atoi(line)
 		require.NoError(t, err)
-		
+
 		input = append(input, n)
 	}
 	return input
