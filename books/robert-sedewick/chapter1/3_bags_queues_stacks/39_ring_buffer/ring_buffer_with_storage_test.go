@@ -32,13 +32,14 @@ func TestNewWithStorage_BelowLimit(t *testing.T) {
 
 func TestRingBuffer_Concurrency(t *testing.T) {
 	wg := sync.WaitGroup{}
-	ioOperations := 10000
+	ioOperations := 100
 
 	ctx, cancel := context.WithTimeout(context.TODO(), 500*time.Millisecond)
 	defer cancel()
 
 	ring := ring_buffer.NewWithStorage[int](ctx, 10)
 
+	wg.Add(1)
 	go func() {
 		defer wg.Done()
 		for i := 0; i < ioOperations; i++ {
@@ -47,6 +48,7 @@ func TestRingBuffer_Concurrency(t *testing.T) {
 
 	}()
 
+	wg.Add(1)
 	go func() {
 		defer wg.Done()
 
@@ -69,7 +71,7 @@ func TestRingBuffer_SlowReader(t *testing.T) {
 
 	ring := ring_buffer.NewWithStorage[int](ctx, 10)
 
-    wg.Add(1)
+	wg.Add(1)
 	go func() {
 		defer wg.Done()
 		for i := 0; i < ioOperations; i++ {
@@ -78,7 +80,7 @@ func TestRingBuffer_SlowReader(t *testing.T) {
 
 	}()
 
-    wg.Add(1)
+	wg.Add(1)
 	go func() {
 		defer wg.Done()
 
