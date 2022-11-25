@@ -1,9 +1,8 @@
 package main
 
 import (
-	"container/list"
 	"errors"
-	format "exercises/books/robert-sedewick/chapter1/3_bags_queues_stacks/00_adt"
+	adt "exercises/books/robert-sedewick/chapter1/3_bags_queues_stacks/00_adt"
 )
 
 // Copy a queue. Create a new constructor so that:
@@ -19,7 +18,7 @@ import (
 var ErrEmpty = errors.New("empty queue")
 
 type Queue struct {
-	list list.List
+	list adt.List
 }
 
 func NewQueue(oldQueue *Queue) *Queue {
@@ -58,5 +57,5 @@ func (q *Queue) Dequeue() (any, error) {
 }
 
 func (q *Queue) String() string {
-	return format.String(q.list)
+	return adt.String(q.list)
 }

@@ -1,9 +1,6 @@
 package main
 
-import (
-	"container/list"
-	format "exercises/books/robert-sedewick/chapter1/3_bags_queues_stacks/00_adt"
-)
+import adt "exercises/books/robert-sedewick/chapter1/3_bags_queues_stacks/00_adt"
 
 // 1.3.40 Move-to-front. Read in a sequence of characters from standard input and
 // maintain the characters in a linked list with no duplicates. When you read in
@@ -15,7 +12,7 @@ import (
 // likely to be reaccessed
 
 type MoveToFront struct {
-	list list.List
+	list adt.List
 }
 
 func (m *MoveToFront) Add(v any) {
@@ -35,5 +32,5 @@ func (m *MoveToFront) remove(v any) {
 }
 
 func (m *MoveToFront) String() string {
-	return format.String(m.list)
+	return adt.String(m.list)
 }
