@@ -1,6 +1,6 @@
 package main
 
-import adt "exercises/books/robert-sedewick/chapter1/3_bags_queues_stacks/00_adt"
+import adt "github.com/jan-carreras/go-playground/books/robert-sedewick/chapter1/3_bags_queues_stacks/adt"
 
 // 1.3.40 Move-to-front. Read in a sequence of characters from standard input and
 // maintain the characters in a linked list with no duplicates. When you read in

@@ -1,8 +1,8 @@
 package random_queue_test
 
 import (
-	random_queue "exercises/books/robert-sedewick/chapter1/3_bags_queues_stacks/35_random_queue"
 	"fmt"
+	random_queue "github.com/jan-carreras/go-playground/books/robert-sedewick/chapter1/3_bags_queues_stacks/35_random_queue"
 	"testing"
 )
 

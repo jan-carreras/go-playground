@@ -1,8 +1,6 @@
 package main
 
-import (
-	"exercises/books/robert-sedewick/chapter1/3_bags_queues_stacks/00_adt"
-)
+import adt "github.com/jan-carreras/go-playground/books/robert-sedewick/chapter1/3_bags_queues_stacks/adt"
 
 // 1.3.42 Copy a stack. Create a new constructor for the linked-list implementation of Stack so that
 //

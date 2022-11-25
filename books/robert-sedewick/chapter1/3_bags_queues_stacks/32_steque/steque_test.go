@@ -1,7 +1,7 @@
 package steque_test
 
 import (
-	steque "exercises/books/robert-sedewick/chapter1/3_bags_queues_stacks/32_steque"
+	steque "github.com/jan-carreras/go-playground/books/robert-sedewick/chapter1/3_bags_queues_stacks/32_steque"
 	"github.com/stretchr/testify/require"
 	"testing"
 )

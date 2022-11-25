@@ -2,7 +2,7 @@ package ring_buffer_test
 
 import (
 	"context"
-	ring_buffer "exercises/books/robert-sedewick/chapter1/3_bags_queues_stacks/39_ring_buffer"
+	ring_buffer "github.com/jan-carreras/go-playground/books/robert-sedewick/chapter1/3_bags_queues_stacks/39_ring_buffer"
 	"github.com/stretchr/testify/require"
 	"sync"
 	"testing"

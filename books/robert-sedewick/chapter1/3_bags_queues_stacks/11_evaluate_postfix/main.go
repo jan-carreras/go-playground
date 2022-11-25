@@ -1,7 +1,7 @@
 package main
 
 import (
-	adt "exercises/books/robert-sedewick/chapter1/3_bags_queues_stacks/00_adt"
+	adt "github.com/jan-carreras/go-playground/books/robert-sedewick/chapter1/3_bags_queues_stacks/adt"
 )
 
 func EvaluatePostfix(s string) int {

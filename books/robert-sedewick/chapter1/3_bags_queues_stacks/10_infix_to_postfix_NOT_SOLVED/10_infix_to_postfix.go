@@ -1,8 +1,8 @@
 package main
 
 import (
-	stack "exercises/books/robert-sedewick/chapter1/3_bags_queues_stacks/00_generic_stack"
 	"fmt"
+	stack "github.com/jan-carreras/go-playground/books/robert-sedewick/chapter1/3_bags_queues_stacks/00_generic_stack"
 	"strings"
 )
 

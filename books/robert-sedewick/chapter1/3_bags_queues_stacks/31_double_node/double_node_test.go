@@ -1,7 +1,7 @@
 package double_list_test
 
 import (
-	dl "exercises/books/robert-sedewick/chapter1/3_bags_queues_stacks/31_double_node"
+	dl "github.com/jan-carreras/go-playground/books/robert-sedewick/chapter1/3_bags_queues_stacks/31_double_node"
 	"github.com/stretchr/testify/require"
 	"strings"
 	"testing"
