@@ -1,26 +1,26 @@
 package main_test
 
 import (
+	adt "exercises/books/robert-sedewick/chapter1/3_bags_queues_stacks/00_adt"
 	"github.com/stretchr/testify/require"
 	"testing"
 )
 
 func TestList_List(t *testing.T) {
-	l := _0_generic_list.List[string]{}
+	l := adt.TypedQueue[string]{}
 
 	l.Enqueue("hello")
 	l.Enqueue("world")
 
-	require.Equal(t, "hello", l.Dequeue())
-	require.Equal(t, "world", l.Dequeue())
+	require.Equal(t, "hello", l.SDequeue())
+	require.Equal(t, "world", l.SDequeue())
 
 	l.Enqueue("foo")
 	l.Enqueue("bar")
 
-	require.Equal(t, "foo", l.Dequeue())
-	require.Equal(t, "bar", l.Dequeue())
+	require.Equal(t, "foo", l.SDequeue())
+	require.Equal(t, "bar", l.SDequeue())
 
-	require.PanicsWithValue(t, "queue is empty", func() {
-		l.Dequeue()
-	})
+	_, err := l.Dequeue()
+	require.Error(t, err)
 }
