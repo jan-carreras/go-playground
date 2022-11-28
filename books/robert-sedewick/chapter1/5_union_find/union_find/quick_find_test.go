@@ -49,11 +49,11 @@ func TestQuickFind(t *testing.T) {
 			output:    "./testdata/mediumUFoutput.txt",
 		},
 
-		{ // Takes 2.56s seconds
+		/*{ // Takes 2.56s seconds // largeUF not commited because it's 30MiB
 			algorithm: "weightedQuickUnion",
 			input:     "./testdata/largeUF.txt",
 			output:    "./testdata/largeUFoutput.txt",
-		},
+		},*/
 	}
 
 	for _, tt := range tests {
