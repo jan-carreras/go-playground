@@ -3,6 +3,11 @@ package union_find
 type QuickFind struct {
 	id    []int
 	count int
+	debug Debug
+}
+
+type Debugger interface {
+	Debug() Debug
 }
 
 func NewQuickFind(sites int) *QuickFind {
@@ -25,7 +30,7 @@ func (qf *QuickFind) Union(p, q int) {
 	}
 
 	for i := range qf.id {
-		if qf.id[i] == pID {
+		if qf.Find(i) == pID {
 			qf.id[i] = qID
 		}
 	}
@@ -34,6 +39,7 @@ func (qf *QuickFind) Union(p, q int) {
 }
 
 func (qf *QuickFind) Find(p int) (componentID int) {
+	qf.debug.IDAccesses++
 	return qf.id[p]
 }
 
@@ -43,4 +49,16 @@ func (qf *QuickFind) Connected(p, q int) (connected bool) {
 
 func (qf *QuickFind) Count() int {
 	return qf.count
+}
+
+type Debug struct {
+	ID         []int
+	IDAccesses int
+}
+
+func (qf *QuickFind) Debug() Debug {
+	return Debug{
+		ID:         qf.id,
+		IDAccesses: qf.debug.IDAccesses,
+	}
 }

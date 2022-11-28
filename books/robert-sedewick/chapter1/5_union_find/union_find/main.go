@@ -4,7 +4,7 @@ import (
 	"bufio"
 	"flag"
 	"fmt"
-	"github.com/jan-carreras/go-playground/books/robert-sedewick/chapter1/5_union_find/1_union_find/union_find"
+	"github.com/jan-carreras/go-playground/books/robert-sedewick/chapter1/5_union_find/union_find/union_find"
 	"io"
 	"log"
 	"os"
