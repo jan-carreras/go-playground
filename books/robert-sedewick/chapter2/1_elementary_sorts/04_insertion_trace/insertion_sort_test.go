@@ -1,4 +1,4 @@
-package selection_sort
+package insertion_trace
 
 import (
 	"bytes"
@@ -9,7 +9,7 @@ import (
 
 func TestSort_Ints(t *testing.T) {
 	input := []int{1, 5, 4, 3, 8, 1}
-	s := new(SelectionSort[int])
+	s := new(InsertSort[int])
 	s.Sort(input)
 	require.Equal(t, []int{1, 1, 3, 4, 5, 8}, input)
 }
@@ -17,7 +17,8 @@ func TestSort_Ints(t *testing.T) {
 func TestSort_Strings(t *testing.T) {
 	input := []string{"E", "A", "S", "Y", "Q", "U", "E", "S", "T", "I", "O", "N"}
 	buf := &bytes.Buffer{}
-	s := new(SelectionSort[string]).WithWriter(buf)
+	s := new(InsertSort[string]).WithWriter(buf)
+
 	s.Sort(input)
 
 	snapshotter := cupaloy.New(cupaloy.SnapshotSubdirectory("testdata"))

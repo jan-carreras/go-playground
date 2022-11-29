@@ -1,0 +1,14 @@
+([]string) (len=12) {
+  (string) (len=1) "A",
+  (string) (len=1) "E",
+  (string) (len=1) "E",
+  (string) (len=1) "I",
+  (string) (len=1) "N",
+  (string) (len=1) "O",
+  (string) (len=1) "Q",
+  (string) (len=1) "S",
+  (string) (len=1) "S",
+  (string) (len=1) "T",
+  (string) (len=1) "U",
+  (string) (len=1) "Y"
+}

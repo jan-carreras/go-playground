@@ -3,6 +3,7 @@ module github.com/jan-carreras/go-playground/books/robert-sedewick
 go 1.19
 
 require (
+	github.com/bradleyjkemp/cupaloy v2.3.0+incompatible
 	github.com/fogleman/gg v1.3.0
 	github.com/go-echarts/go-echarts/v2 v2.2.4
 	github.com/stretchr/testify v1.8.1
