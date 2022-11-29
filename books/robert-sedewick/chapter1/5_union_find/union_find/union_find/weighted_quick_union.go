@@ -4,6 +4,7 @@ type WeightedQuickUnion struct {
 	ids   []int
 	size  []int
 	count int
+	debug Debug
 }
 
 func NewWeightedQuickUnion(sites int) *WeightedQuickUnion {
@@ -38,12 +39,14 @@ func (w *WeightedQuickUnion) Union(p, q int) {
 		w.ids[j] = i
 		w.size[i] += w.size[j]
 	}
+	w.debug.IDAccesses += 3
 
 	w.count--
 }
 
 func (w *WeightedQuickUnion) Find(p int) (componentID int) {
 	for p != w.ids[p] {
+		w.debug.IDAccesses += 2
 		p = w.ids[p]
 	}
 
@@ -56,4 +59,10 @@ func (w *WeightedQuickUnion) Connected(p, q int) (connected bool) {
 
 func (w *WeightedQuickUnion) Count() int {
 	return w.count
+}
+
+func (w *WeightedQuickUnion) Debug() Debug {
+	d := w.debug
+	d.ID = w.ids
+	return d
 }
