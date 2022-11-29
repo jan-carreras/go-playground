@@ -3,6 +3,7 @@ package union_find
 type QuickUnion struct {
 	ids   []int
 	count int
+	debug Debug
 }
 
 func NewQuickUnion(sites int) *QuickUnion {
@@ -29,6 +30,7 @@ func (q2 *QuickUnion) Union(p, q int) {
 
 func (q2 *QuickUnion) Find(p int) (componentID int) {
 	for q2.ids[p] != p {
+		q2.debug.IDAccesses += 2
 		p = q2.ids[p]
 	}
 
@@ -41,4 +43,10 @@ func (q2 *QuickUnion) Connected(p, q int) (connected bool) {
 
 func (q2 *QuickUnion) Count() int {
 	return q2.count
+}
+
+func (q2 *QuickUnion) Debug() Debug {
+	d := q2.debug
+	d.ID = q2.ids
+	return d
 }
