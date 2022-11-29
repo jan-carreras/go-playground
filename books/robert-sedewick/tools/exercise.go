@@ -56,7 +56,7 @@ func createExercise(rootDirectory, name string) error {
 }
 
 func createNewExercise(moduleDir string, exercise int, exerciseName string) error {
-	exercisePath := path.Join(moduleDir, fmt.Sprintf("%d_%s", exercise, exerciseName))
+	exercisePath := path.Join(moduleDir, fmt.Sprintf("%02d_%s", exercise, exerciseName))
 	err := os.Mkdir(exercisePath, 0755)
 	if err != nil {
 		return err
@@ -84,6 +84,10 @@ func checkExerciseExists(moduleDir string, exercise int) error {
 	}
 
 	for _, file := range files {
+		if strings.HasPrefix(file.Name(), fmt.Sprintf("%02d_", exercise)) {
+			return fmt.Errorf("this exericse already exists: %q", file.Name())
+		}
+
 		if strings.HasPrefix(file.Name(), fmt.Sprintf("%d_", exercise)) {
 			return fmt.Errorf("this exericse already exists: %q", file.Name())
 		}

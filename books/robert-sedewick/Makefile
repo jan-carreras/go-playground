@@ -5,3 +5,7 @@ help: ## Show this help.
 
 test: ## Run all the tests
 	@go test ./...
+
+exercise:
+	go build tools/exercise.go
+	mv exercise ${HOME}/go/bin
