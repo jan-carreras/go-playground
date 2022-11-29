@@ -1,0 +1,7 @@
+
+2.1.1 Show, in the style of the example trace with Algorithm 2.1, how selection sort sorts the array
+E A S Y Q U E S T I O N.
+
+i  min   0 1 2 3 4 5 6 7 8 9 10 11
+         E A S Y Q U E S T I  O  N
+0    1   E A S Y Q U E S T I  O  N
