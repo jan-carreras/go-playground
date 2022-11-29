@@ -30,7 +30,7 @@ func (s *ShellSort[T]) Sort(input []T) {
 
 	//s.write(fmt.Sprintf("N=%d h=%d\n", N, h))
 
-	for h >= 1 {
+	for ; h >= 1; h /= 3 {
 		//s.write(fmt.Sprintf("h-start=%d\n", h))
 		for i := h; i < N; i++ {
 			for j := i; j >= h && input[j] < input[j-1]; j -= h {
@@ -38,7 +38,6 @@ func (s *ShellSort[T]) Sort(input []T) {
 				input[j], input[j-1] = input[j-1], input[j]
 			}
 		}
-		h /= 3 // ????
 		//s.write(fmt.Sprintf("h-end=%d\n", h))
 	}
 }
