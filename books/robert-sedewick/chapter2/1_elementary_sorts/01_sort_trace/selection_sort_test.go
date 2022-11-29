@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"github.com/bradleyjkemp/cupaloy"
 	"github.com/stretchr/testify/require"
+	"strings"
 	"testing"
 )
 
@@ -15,7 +16,7 @@ func TestSort_Ints(t *testing.T) {
 }
 
 func TestSort_Strings(t *testing.T) {
-	input := []string{"E", "A", "S", "Y", "Q", "U", "E", "S", "T", "I", "O", "N"}
+	input := strings.Split("E A S Y Q U E S T I O N", " ")
 	buf := &bytes.Buffer{}
 	s := new(SelectionSort[string]).WithWriter(buf)
 	s.Sort(input)
