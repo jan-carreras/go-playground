@@ -48,8 +48,22 @@ func TestQuickFind(t *testing.T) {
 			input:     "./testdata/mediumUF.txt",
 			output:    "./testdata/mediumUFoutput.txt",
 		},
-
 		/*{ // Takes 2.56s seconds // largeUF not commited because it's 30MiB
+			algorithm: "weightedQuickUnion",
+			input:     "./testdata/largeUF.txt",
+			output:    "./testdata/largeUFoutput.txt",
+		},*/
+		{
+			algorithm: "weightedQuickUnionPathCompression",
+			input:     "./testdata/tinyUF.txt",
+			output:    "./testdata/tinyUFoutput.txt",
+		},
+		{
+			algorithm: "weightedQuickUnionPathCompression",
+			input:     "./testdata/mediumUF.txt",
+			output:    "./testdata/mediumUFoutput.txt",
+		},
+		/*{ // Takes 2.17s seconds // largeUF not commited because it's 30MiB
 			algorithm: "weightedQuickUnion",
 			input:     "./testdata/largeUF.txt",
 			output:    "./testdata/largeUFoutput.txt",

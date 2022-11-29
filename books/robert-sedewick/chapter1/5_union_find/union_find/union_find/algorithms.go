@@ -7,6 +7,7 @@ type Algo string
 const QuickFindAlgo Algo = "quickFind"
 const QuickUnionAlgo Algo = "quickUnion"
 const WeightedQuickUnionAlgo Algo = "weightedQuickUnion"
+const WeightedQuickUnionPathCompressionAlgo Algo = "weightedQuickUnionPathCompression"
 
 type UnionFind interface {
 	// Union adds a connection between p and q
@@ -27,6 +28,8 @@ func New(algorithm Algo, sites int) (UnionFind, error) {
 		return NewQuickUnion(sites), nil
 	case WeightedQuickUnionAlgo:
 		return NewWeightedQuickUnion(sites), nil
+	case WeightedQuickUnionPathCompressionAlgo:
+		return NewWeightedQuickUnionPathCompression(sites), nil
 	default:
 		return nil, fmt.Errorf("unknown algorithm: %s", algorithm)
 	}
