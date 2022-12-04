@@ -5,3 +5,4 @@ help: ## Show this help.
 
 test-all: ## Run all the tests on all the projects
 	make --directory books/robert-sedewick test
+	make --directory micro-projects/advent-of-code/2022 test
