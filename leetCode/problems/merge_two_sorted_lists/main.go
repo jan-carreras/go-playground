@@ -1,21 +1,19 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	list "leetcode/problems/lists"
+)
 
 func main() {
-	l1 := &ListNode{1, &ListNode{2, &ListNode{4, nil}}}
-	l2 := &ListNode{1, &ListNode{3, &ListNode{4, nil}}}
+	l1 := list.NewList([]int{1, 2, 4})
+	l2 := list.NewList([]int{1, 3, 4})
 
 	out := mergeTwoLists(l1, l2)
-	print(out)
+	fmt.Println(out)
 }
 
-type ListNode struct {
-	Val  int
-	Next *ListNode
-}
-
-func mergeTwoLists(list1 *ListNode, list2 *ListNode) *ListNode {
+func mergeTwoLists(list1 *list.ListNode, list2 *list.ListNode) *list.ListNode {
 	if list1 == nil {
 		return list2
 	}
@@ -23,7 +21,7 @@ func mergeTwoLists(list1 *ListNode, list2 *ListNode) *ListNode {
 		return list1
 	}
 
-	root := &ListNode{}
+	root := &list.ListNode{}
 	current := root
 
 	for list1 != nil && list2 != nil {
@@ -51,18 +49,4 @@ func mergeTwoLists(list1 *ListNode, list2 *ListNode) *ListNode {
 	}
 
 	return root.Next
-}
-
-func print(root *ListNode) {
-	var count int
-	n := root
-	for n != nil {
-		fmt.Println(n.Val)
-		n = n.Next
-		count++
-		if count > 10 {
-			panic("meh")
-		}
-	}
-	fmt.Println()
 }
