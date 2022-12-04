@@ -10,7 +10,7 @@ import (
 )
 
 func main() {
-	maxCalories, err := run(os.Stdin)
+	maxCalories, err := part1(os.Stdin)
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -18,28 +18,18 @@ func main() {
 	fmt.Printf("The elf with most calories is: %d\n", maxCalories)
 }
 
-func run(input io.Reader) (maxCalories int, err error) {
+func part1(input io.Reader) (maxCalories int, err error) {
 	s := bufio.NewScanner(input)
 
-	lines := make([]string, 0)
-	for s.Scan() {
-		lines = append(lines, s.Text())
-	}
-
-	max := func(a, b int) int {
-		if a > b {
-			return a
-		}
-		return b
-	}
-
 	lastElfCalories := 0
-	for _, line := range lines {
+	for s.Scan() {
+		line := s.Text()
 		if line == "" {
 			maxCalories = max(maxCalories, lastElfCalories)
 			lastElfCalories = 0
 			continue
 		}
+
 		calories, err := strconv.Atoi(line)
 		if err != nil {
 			return 0, fmt.Errorf("invalid number: %w", err)
@@ -47,7 +37,13 @@ func run(input io.Reader) (maxCalories int, err error) {
 
 		lastElfCalories += calories
 	}
-	maxCalories = max(maxCalories, lastElfCalories)
 
-	return maxCalories, nil
+	return max(maxCalories, lastElfCalories), nil
+}
+
+func max(a, b int) int {
+	if a > b {
+		return a
+	}
+	return b
 }
