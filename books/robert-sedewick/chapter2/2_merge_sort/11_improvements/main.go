@@ -62,11 +62,11 @@ func merge[T constraints.Ordered](input []T, aux []T, lo, mid, hi int) {
 	i, j := lo, mid+1
 	for k := lo; k <= hi; k++ {
 		if i > mid {
-			input[k] = aux[j]
-			j++
+			copy(input[k:hi+1], aux[j:hi+1])
+			return
 		} else if j > hi {
-			input[k] = aux[i]
-			i++
+			copy(input[k:hi+1], aux[i:mid+1])
+			return
 		} else if aux[j] < aux[i] {
 			input[k] = aux[j]
 			j++
