@@ -44,6 +44,24 @@ func part1(input io.Reader) (int, error) {
 	return sum, s.Err()
 }
 
+func part2(input io.Reader) (int, error) {
+	sum := 0
+	s := bufio.NewScanner(input)
+
+	elfGroup := make([]map[rune]bool, 3)
+	for i := 0; s.Scan(); i = (i + 1) % 3 {
+		rucksack := makeSet(s.Text())
+		elfGroup[i] = rucksack
+
+		if i == 2 {
+			commonItem := firstUnion(unions(elfGroup...))
+			sum += priority(commonItem)
+		}
+	}
+
+	return sum, s.Err()
+}
+
 func makeSet(s string) map[rune]bool {
 	set := make(map[rune]bool)
 	for _, item := range s {

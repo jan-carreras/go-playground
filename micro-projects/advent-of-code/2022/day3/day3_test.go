@@ -16,6 +16,17 @@ func TestPart1(t *testing.T) {
 	require.Equal(t, 7785, sum)
 }
 
+func TestPart2(t *testing.T) {
+	f, err := os.Open("input.txt")
+	require.NoError(t, err)
+
+	sum, err := part2(f)
+	require.NoError(t, err)
+
+	require.Equal(t, 2633, sum)
+
+}
+
 func TestPriority(t *testing.T) {
 	require.Equal(t, 16, priority('p'))
 	require.Equal(t, 38, priority('L'))
@@ -23,6 +34,7 @@ func TestPriority(t *testing.T) {
 	require.Equal(t, 22, priority('v'))
 	require.Equal(t, 20, priority('t'))
 	require.Equal(t, 19, priority('s'))
+	require.Equal(t, 18, priority('r'))
 }
 
 func TestUnions(t *testing.T) {
