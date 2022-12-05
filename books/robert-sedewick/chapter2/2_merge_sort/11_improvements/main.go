@@ -23,6 +23,7 @@ func Sort[T constraints.Ordered](input []T) {
 	sort(input, aux, 0, len(input)-1, false)
 }
 
+// and avoid the copy by switching arguments in the recursive code
 func sort[T constraints.Ordered](input, aux []T, lo, hi int, swapInputs bool) {
 	if hi <= lo {
 		return
@@ -54,10 +55,6 @@ func insertSort[T constraints.Ordered](input []T, lo, hi int) {
 }
 
 func merge[T constraints.Ordered](input []T, aux []T, lo, mid, hi int) {
-	// and avoid the copy by switching arguments in the recursive code
-	/*	for k := lo; k <= hi; k++ {
-		aux[k] = input[k]
-	}*/
 
 	i, j := lo, mid+1
 	for k := lo; k <= hi; k++ {
