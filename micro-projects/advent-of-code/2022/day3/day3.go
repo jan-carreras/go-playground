@@ -33,27 +33,54 @@ func part1(input io.Reader) (int, error) {
 	sum := 0
 	s := bufio.NewScanner(input)
 	for s.Scan() {
-		// Read the input line by line
 		rucksack := s.Text()
 
-		// Split the line into two sections
-		compartment1, compartment2 := rucksack[:len(rucksack)/2], rucksack[len(rucksack)/2:]
+		compartment1, compartment2 := makeSet(rucksack[:len(rucksack)/2]), makeSet(rucksack[len(rucksack)/2:])
 
-		set := make(map[rune]bool)
-		for _, item := range compartment1 {
-			set[item] = true
-		}
-
-		// Iterate thru both sections to search for a common element
-		for _, item := range compartment2 {
-			if _, duplicate := set[item]; duplicate {
-				//fmt.Println(string(item), priority(item), compartment1, compartment2)
-				// Punctuate the element + sum all the elements
-				sum += priority(item)
-				break
-			}
-		}
+		item := firstUnion(unions(compartment1, compartment2))
+		sum += priority(item)
 	}
 
 	return sum, s.Err()
+}
+
+func makeSet(s string) map[rune]bool {
+	set := make(map[rune]bool)
+	for _, item := range s {
+		set[item] = true
+	}
+	return set
+}
+
+func firstUnion(set map[rune]bool) rune {
+	for r := range set {
+		return r
+	}
+	panic("the set is empty")
+}
+
+func unions(maps ...map[rune]bool) map[rune]bool {
+	if len(maps) == 0 {
+		return make(map[rune]bool)
+	} else if len(maps) == 1 {
+		return maps[0]
+	}
+
+	u := union(maps[0], maps[1])
+	for i := 2; i < len(maps); i++ {
+		u = unions(u, maps[i])
+	}
+
+	return u
+}
+
+func union(m1, m2 map[rune]bool) map[rune]bool {
+	u := make(map[rune]bool)
+	for k := range m2 {
+		if _, found := m1[k]; found {
+			u[k] = true
+		}
+	}
+
+	return u
 }
