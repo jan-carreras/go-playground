@@ -2,6 +2,8 @@ package sorted_queues
 
 import "container/list"
 
+var Merge = mergeQueuesWithPeek
+
 func mergeQueuesWithPeek(q1, q2 *list.List) (result *list.List) {
 	result = list.New()
 
