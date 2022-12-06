@@ -5,7 +5,7 @@ import (
 	"golang.org/x/exp/constraints"
 )
 
-// NOTE: Not finished and probably wrong. I'm using M*2 space, rather than M :/
+// TODO: Not finished and probably wrong. I'm using M*2 space, rather than M :/
 
 // 2.2.12 Sublinear extra space. Develop a merge implementation that reduces the
 // extra space requirement to max(M, N/M), based on the following idea: Divide
