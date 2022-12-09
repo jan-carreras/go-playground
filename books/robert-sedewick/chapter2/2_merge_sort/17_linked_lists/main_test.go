@@ -28,14 +28,6 @@ func TestMerge(t *testing.T) {
 
 }
 
-func newList(input []int) *list.List {
-	l := list.New()
-	for _, value := range input {
-		l.PushBack(value)
-	}
-	return l
-}
-
 func TestFindIncreasingBlock(t *testing.T) {
 	input := []int{100, 200, 300, 400, 120, 130, 140, 250, 500, 520, 10, 20, 30, 900}
 	l := newList(input)
@@ -43,9 +35,9 @@ func TestFindIncreasingBlock(t *testing.T) {
 	n := findIncreasingBlock(l.Front())
 	require.NotNil(t, n)
 	require.EqualValues(t, 400, n.Value)
-
 	n = findIncreasingBlock(n.Next())
 	require.NotNil(t, n)
+
 	require.EqualValues(t, 520, n.Value)
 
 	n = findIncreasingBlock(n.Next())
@@ -54,4 +46,12 @@ func TestFindIncreasingBlock(t *testing.T) {
 
 	n = findIncreasingBlock(n.Next())
 	require.Nil(t, n)
+}
+
+func newList(input []int) *list.List {
+	l := list.New()
+	for _, value := range input {
+		l.PushBack(value)
+	}
+	return l
 }
