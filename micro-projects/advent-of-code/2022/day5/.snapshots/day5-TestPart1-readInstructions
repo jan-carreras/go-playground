@@ -1,0 +1,5 @@
+(main.instruction) {
+  count: (int) 0,
+  from: (int) 0,
+  to: (int) 0
+}
