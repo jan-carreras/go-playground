@@ -1,9 +1,35 @@
-//go:build step3 || (!step1 && !step2)
 // +build step3 !step1,!step2
 
 package robot
 
 import "testing"
+
+// Step 3 has three major changes:
+//
+// *  Robots run scripts rather than respond to individual commands.
+// *  A log channel allows robots and the room to log messages.
+// *  The room allows multiple robots to exist and operate concurrently.
+//
+// Step 3 API:
+//
+//    StartRobot3(name, script string, action chan Action3, log chan string)
+//    Room3(extent Rect, robots []Step3Robot, action chan Action3, report chan []Step3Robot, log chan string)
+//
+// Again, you define Action3.
+//
+// TODO ?????? Return values
+// For the final position report sent from StartRobot3, you can return the same slice
+// received from the robots channel, just with updated positions and directions.
+//
+// Messages must be sent on the log channel for
+// *  A robot without a name  // Robot itself
+// *  Duplicate robot names // From the room
+// *  Robots placed at the same place // From the room?
+// *  A robot placed outside of the room // Room
+// *  An undefined command in a script // ??? ok
+// *  An action from an unknown robot // By name?
+// *  A robot attempting to advance into a wall // By room
+// *  A robot attempting to advance into another robot // By room
 
 var testOneRobot = []struct {
 	cmd byte

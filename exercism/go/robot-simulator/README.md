@@ -1,10 +1,5 @@
 # Robot Simulator
 
-Welcome to Robot Simulator on Exercism's Go Track.
-If you need help running the tests or submitting your code, check out `HELP.md`.
-
-## Instructions
-
 Write a robot simulator.
 
 A robot factory's test facility needs a program to verify robot movements.
@@ -32,98 +27,31 @@ direction it is pointing.
 - Say a robot starts at {7, 3} facing north. Then running this stream
   of instructions should leave it at {9, 4} facing west.
 
-## Implementation Notes
+## Coding the solution
 
-Tests are separated into 3 steps.
+Look for a stub file having the name robot_simulator.go
+and place your solution code in that file.
 
-Run all tests with `go test` or run specific tests with the -tags option.
+## Running the tests
 
-Examples:
+To run the tests run the command `go test` from within the exercise directory.
 
-```bash
-go test                      # run all tests
-go test -tags step1          # run just step 1 tests.
-go test -tags 'step1 step2'  # run step1 and step2 tests
-```
+If the test suite contains benchmarks, you can run these with the `--bench` and `--benchmem`
+flags:
 
-You are given the source file defs.go which defines a number of things
-the test program requires.  It is organized into three sections by step.
+    go test -v --bench . --benchmem
 
-## Step 1
+Keep in mind that each reviewer will run benchmarks on a different machine, with
+different specs, so the results from these benchmark tests may vary.
 
-To complete step 1 you will define Right, Left, Advance, N, S, E, W,
-and Dir.String.  Complete step 1 before moving on to step 2.
+## Further information
 
-## Step 2
-
-For step 1 you implemented robot movements, but it's not much of a simulation.
-For example where in the source code is "the robot"?  Where is "the grid"?
-Where are the computations that turn robot actions into grid positions,
-in the robot, or in the grid?  The physical world is different.
-
-Step 2 introduces a "room."  It seems a small addition, but we'll make
-big changes to clarify the roles of "room", "robot", and "test program"
-and begin to clarify the physics of the simulation.  You will define Room
-and Robot as functions which the test program "brings into existence" by
-launching them as goroutines.  Information moves between test program,
-robot, and room over Go channels.
-
-Think of Room as a "physics engine," something that models and simulates
-a physical room with walls and a robot.  It should somehow model the
-coordinate space of the room, the location of the robot and the walls,
-and ensure for example that the robot doesn't walk through walls.
-We want Robot to be an agent that performs actions, but we want Room to
-maintain a coherent truth.
-
-The test program creates the channels and starts both Room and Robot.
-The test program then sends commands to Robot.  When it is done sending
-commands, it closes the command channel.  Robot must accept commands and
-inform Room of actions it is attempting.  When it senses the command channel
-closing, it must shut itself down.  The room must interpret the physical
-consequences of the robot actions.  When it senses the robot shutting down,
-it sends a final report back to the test program, telling the robot's final
-position and direction.
-
-## Step 3
-
-Step 3 has three major changes:
-
-*  Robots run scripts rather than respond to individual commands.
-*  A log channel allows robots and the room to log messages.
-*  The room allows multiple robots to exist and operate concurrently.
-
-For the final position report sent from Room3, you can return the same slice
-received from the robots channel, just with updated positions and directions.
-
-Messages must be sent on the log channel for
-*  A robot without a name
-*  Duplicate robot names
-*  Robots placed at the same place
-*  A robot placed outside of the room
-*  An undefined command in a script
-*  An action from an unknown robot
-*  A robot attempting to advance into a wall
-*  A robot attempting to advance into another robot
+For more detailed information about the Go track, including how to get help if
+you're having trouble, please visit the exercism.io [Go language page](http://exercism.io/languages/go/resources).
 
 ## Source
 
-### Contributed to by
-
-- @alebaffa
-- @bitfield
-- @ekingery
-- @ferhatelmas
-- @hilary
-- @jbsmith7741
-- @kytrinyx
-- @leenipper
-- @petertseng
-- @pminten
-- @robphoenix
-- @sebito91
-- @soniakeys
-- @tleen
-
-### Based on
-
 Inspired by an interview question at a famous company.
+
+## Submitting Incomplete Solutions
+It's possible to submit an incomplete solution so you can see how others have completed the exercise.
