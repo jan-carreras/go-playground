@@ -43,3 +43,15 @@ func TestArraySymbolTable(t *testing.T) {
 	require.EqualValues(t, 4, *ast.Get("A"))
 	require.EqualValues(t, 2, *ast.Get("C"))
 }
+
+func TestKeys(t *testing.T) {
+	ast := ArraySymbolTable[string, float64]{}
+
+	ast.Set("A+", 4.33)
+	ast.Set("A", 4)
+	ast.Set("A-", 3.67)
+	ast.Set("D", 100)
+	ast.Set("D", 1) // Overwriting with
+
+	require.Equal(t, []string{"A", "A+", "A-", "D"}, ast.Keys())
+}

@@ -99,6 +99,15 @@ func (s *ArraySymbolTable[K, V]) addInPosition(i int, key K, value V) {
 	s.size++
 }
 
+func (s *ArraySymbolTable[K, V]) Keys() []K {
+	r := make([]K, 0, s.size)
+	for i := 0; i < s.size; i++ {
+		r = append(r, s.keys[i])
+	}
+
+	return r
+}
+
 func (s *ArraySymbolTable[K, V]) isFull() bool {
 	return len(s.keys) == s.size
 }
