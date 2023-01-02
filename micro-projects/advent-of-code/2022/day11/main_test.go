@@ -25,4 +25,11 @@ func Test(t *testing.T) {
 
 	// PART 1. What is the level of monkey business after 20 rounds of stuff-slinging simian shenanigans? 110220
 
+	// PART 2. What is the level of monkey business after 20 rounds of stuff-slinging simian shenanigans? 2713310158
+
+	/**
+	I've cheated on part 2. No idea how to approach it, and I still don't grasp
+	the mathematical underlying logic :/
+	*/
+
 }

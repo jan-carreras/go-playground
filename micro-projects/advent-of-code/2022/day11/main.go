@@ -11,7 +11,7 @@ import (
 	"strings"
 )
 
-const N = 20
+const N = 10000
 
 func main() {
 	if err := run(os.Stdin); err != nil {
@@ -68,6 +68,12 @@ func printRound(monkeys []Monkey) {
 }
 
 func computeRound(monkeys []Monkey) error {
+	// Cheated on this one: https://www.reddit.com/r/adventofcode/comments/zih7gf/comment/izr79go/?utm_source=share&utm_medium=web2x&context=3
+	supermod := 1
+	for _, monkey := range monkeys {
+		supermod *= monkey.testDivisor
+	}
+
 	for i, m := range monkeys {
 		debug("Monkey %d:\n", i)
 		for _, item := range m.items {
@@ -86,18 +92,18 @@ func computeRound(monkeys []Monkey) error {
 			switch m.operationOp {
 			case "*":
 				worryLevel = n * item
-				//worryLevel = new(big.Int).Mul(&n, &item)
 				debug("   Worry level is multiplied by %d to %d.\n", n, worryLevel)
 			case "+":
 				worryLevel = n + item
-				//worryLevel = new(big.Int).Add(&n, &item)
 				debug("   Worry level increases by %d to %d.\n", n, worryLevel)
 			default:
 				return fmt.Errorf("unknown operation: %s", m.operationOp)
 			}
 
+			worryLevel %= supermod
+
 			/*
-				worryLevel /= 1
+				worryLevel /= 3
 				debug("   Monkey gets bored with item. Worry level is divided by %d to %d.\n", 3, worryLevel)
 			*/
 			if worryLevel%m.testDivisor == 0 {
