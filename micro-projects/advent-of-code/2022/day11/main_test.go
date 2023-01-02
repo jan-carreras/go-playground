@@ -8,7 +8,7 @@ import (
 
 func Test(t *testing.T) {
 
-	f, err := os.Open("input-small.txt")
+	f, err := os.Open("input.txt")
 	require.NoError(t, err)
 
 	err = run(f)
@@ -25,7 +25,7 @@ func Test(t *testing.T) {
 
 	// PART 1. What is the level of monkey business after 20 rounds of stuff-slinging simian shenanigans? 110220
 
-	// PART 2. What is the level of monkey business after 20 rounds of stuff-slinging simian shenanigans? 2713310158
+	// PART 2. What is the level of monkey business after 20 rounds of stuff-slinging simian shenanigans? 19457438264
 
 	/**
 	I've cheated on part 2. No idea how to approach it, and I still don't grasp
