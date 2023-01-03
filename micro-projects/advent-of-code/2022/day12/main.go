@@ -39,15 +39,15 @@ func isWalkable(board [][]string, p1, p2 point) bool {
 		return false
 	}
 
-	getNormalisedValue := func(p point) string {
+	getNormalisedValue := func(p point) rune {
 		value := board[p.y][p.x]
 		switch value {
 		case "E":
-			return "z"
-		case "A":
-			return "a"
+			return 'z'
+		case "S":
+			return 'a'
 		}
-		return value
+		return rune(value[0])
 	}
 
 	// Normalise S and E to their corresponding values
@@ -55,7 +55,7 @@ func isWalkable(board [][]string, p1, p2 point) bool {
 	b := getNormalisedValue(p2)
 
 	// Compute the difference between the two points
-	diff := abs(rune(a[0]) - rune(b[0]))
+	diff := abs(a - b)
 	return diff <= 1
 }
 
@@ -101,6 +101,8 @@ func run(input io.Reader) error {
 	return fmt.Errorf("we haven't found a solution :(")
 }
 
+// runPart2 : same as part1 but in reverse order. We walk from the End to the first
+// point with value 'a'
 func runPart2(input io.Reader) error {
 	board, err := readBoard(input)
 	if err != nil {
@@ -115,6 +117,15 @@ func runPart2(input io.Reader) error {
 	l := list.New()
 	l.PushFront(start)
 
+	isStartPoint := func(p point) bool {
+		value := board[p.y][p.x]
+		switch value {
+		case "S", "a":
+			return true
+		}
+		return false
+	}
+
 	for l.Len() != 0 {
 		n := l.Remove(l.Front()).(point)
 		if _, visited := set[n.String()]; visited {
@@ -122,7 +133,7 @@ func runPart2(input io.Reader) error {
 		}
 		set[n.String()] = true
 
-		if board[n.y][n.x] == "a" { // We have found the lowest point
+		if isStartPoint(n) { // We have found the lowest point
 			printResult(n, board)
 			return nil
 		}
@@ -131,11 +142,6 @@ func runPart2(input io.Reader) error {
 			m := n
 			p.parent = &m // To be able to trace back the path
 			l.PushBack(p)
-		}
-
-		if l.Len() == 0 {
-			fmt.Println(possibleNextSteps(board, n))
-			printTrail(n, board)
 		}
 	}
 
