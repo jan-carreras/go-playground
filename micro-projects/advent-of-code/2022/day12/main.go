@@ -39,15 +39,20 @@ func isWalkable(board [][]string, p1, p2 point) bool {
 		return false
 	}
 
-	a := board[p1.y][p1.x]
-	b := board[p2.y][p2.x]
+	getNormalisedValue := func(p point) string {
+		value := board[p.y][p.x]
+		switch value {
+		case "E":
+			return "z"
+		case "A":
+			return "a"
+		}
+		return value
+	}
+
 	// Normalise S and E to their corresponding values
-	if a == "S" {
-		a = "a"
-	}
-	if b == "E" {
-		b = "z"
-	}
+	a := getNormalisedValue(p1)
+	b := getNormalisedValue(p2)
 
 	// Compute the difference between the two points
 	diff := abs(rune(a[0]) - rune(b[0]))
@@ -90,6 +95,47 @@ func run(input io.Reader) error {
 			m := n
 			p.parent = &m // To be able to trace back the path
 			l.PushBack(p)
+		}
+	}
+
+	return fmt.Errorf("we haven't found a solution :(")
+}
+
+func runPart2(input io.Reader) error {
+	board, err := readBoard(input)
+	if err != nil {
+		return err
+	}
+
+	_, end := startEndPositions(board)
+	start := end // We start walking from the top of the hill, finding the lowest point
+
+	set := make(map[string]bool)
+
+	l := list.New()
+	l.PushFront(start)
+
+	for l.Len() != 0 {
+		n := l.Remove(l.Front()).(point)
+		if _, visited := set[n.String()]; visited {
+			continue
+		}
+		set[n.String()] = true
+
+		if board[n.y][n.x] == "a" { // We have found the lowest point
+			printResult(n, board)
+			return nil
+		}
+
+		for _, p := range possibleNextSteps(board, n) {
+			m := n
+			p.parent = &m // To be able to trace back the path
+			l.PushBack(p)
+		}
+
+		if l.Len() == 0 {
+			fmt.Println(possibleNextSteps(board, n))
+			printTrail(n, board)
 		}
 	}
 
