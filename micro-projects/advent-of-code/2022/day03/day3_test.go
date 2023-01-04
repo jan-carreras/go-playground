@@ -10,7 +10,7 @@ func TestPart1(t *testing.T) {
 	f, err := os.Open("input.txt")
 	require.NoError(t, err)
 
-	sum, err := part1(f)
+	sum, err := Part1(f)
 	require.NoError(t, err)
 
 	require.Equal(t, 7785, sum)
@@ -20,7 +20,7 @@ func TestPart2(t *testing.T) {
 	f, err := os.Open("input.txt")
 	require.NoError(t, err)
 
-	sum, err := part2(f)
+	sum, err := Part2(f)
 	require.NoError(t, err)
 
 	require.Equal(t, 2633, sum)
@@ -28,6 +28,12 @@ func TestPart2(t *testing.T) {
 }
 
 func TestPriority(t *testing.T) {
+	priority := func(r rune) int {
+		p, err := priority(r)
+		require.NoError(t, err)
+		return p
+	}
+
 	require.Equal(t, 16, priority('p'))
 	require.Equal(t, 38, priority('L'))
 	require.Equal(t, 42, priority('P'))

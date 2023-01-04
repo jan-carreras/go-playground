@@ -2,34 +2,11 @@ package main
 
 import (
 	"bufio"
-	"fmt"
+	"errors"
 	"io"
-	"log"
-	"os"
 )
 
-func main() {
-	sum, err := part1(os.Stdin)
-	if err != nil {
-		log.Fatalln(err)
-	}
-
-	fmt.Printf("The sum of priorities is: %d\n", sum)
-}
-
-func priority(r rune) int {
-	if r >= 'a' && r <= 'z' {
-		return int(r - 'a' + 1)
-	}
-
-	if r >= 'A' && r <= 'Z' {
-		return int(r - 'A' + 27)
-	}
-
-	panic("unknown character " + string(r))
-}
-
-func part1(input io.Reader) (int, error) {
+func Part1(input io.Reader) (int, error) {
 	sum := 0
 	s := bufio.NewScanner(input)
 	for s.Scan() {
@@ -37,14 +14,21 @@ func part1(input io.Reader) (int, error) {
 
 		compartment1, compartment2 := makeSet(rucksack[:len(rucksack)/2]), makeSet(rucksack[len(rucksack)/2:])
 
-		item := firstUnion(unions(compartment1, compartment2))
-		sum += priority(item)
+		item, err := getRandomElement(unions(compartment1, compartment2))
+		if err != nil {
+			return 0, err
+		}
+		p, err := priority(item)
+		if err != nil {
+			return 0, err
+		}
+		sum += p
 	}
 
 	return sum, s.Err()
 }
 
-func part2(input io.Reader) (int, error) {
+func Part2(input io.Reader) (int, error) {
 	sum := 0
 	s := bufio.NewScanner(input)
 
@@ -54,14 +38,37 @@ func part2(input io.Reader) (int, error) {
 		elfGroup[i] = rucksack
 
 		if i == 2 {
-			commonItem := firstUnion(unions(elfGroup...))
-			sum += priority(commonItem)
+			commonItem, err := getRandomElement(unions(elfGroup...))
+			if err != nil {
+				return 0, err
+			}
+
+			p, err := priority(commonItem)
+			if err != nil {
+				return 0, err
+			}
+
+			sum += p
 		}
 	}
 
 	return sum, s.Err()
 }
 
+// priority returns the priority of each item
+func priority(r rune) (int, error) {
+	if r >= 'a' && r <= 'z' {
+		return int(r - 'a' + 1), nil
+	}
+
+	if r >= 'A' && r <= 'Z' {
+		return int(r - 'A' + 27), nil
+	}
+
+	return 0, errors.New("unknown character " + string(r))
+}
+
+// makeSet generates a set from each character on a string
 func makeSet(s string) map[rune]bool {
 	set := make(map[rune]bool)
 	for _, item := range s {
@@ -70,32 +77,35 @@ func makeSet(s string) map[rune]bool {
 	return set
 }
 
-func firstUnion(set map[rune]bool) rune {
+// getRandomElement returns a random element of a set
+func getRandomElement(set map[rune]bool) (rune, error) {
 	for r := range set {
-		return r
+		return r, nil
 	}
-	panic("the set is empty")
+	return 0, errors.New("set is empty, thus cannot get a random element")
 }
 
-func unions(maps ...map[rune]bool) map[rune]bool {
-	if len(maps) == 0 {
+// unions returns a new union containing elements present in all sets
+func unions(sets ...map[rune]bool) map[rune]bool {
+	if len(sets) == 0 {
 		return make(map[rune]bool)
-	} else if len(maps) == 1 {
-		return maps[0]
+	} else if len(sets) == 1 {
+		return sets[0]
 	}
 
-	u := union(maps[0], maps[1])
-	for i := 2; i < len(maps); i++ {
-		u = unions(u, maps[i])
+	u := union(sets[0], sets[1])
+	for i := 2; i < len(sets); i++ {
+		u = union(u, sets[i])
 	}
 
 	return u
 }
 
-func union(m1, m2 map[rune]bool) map[rune]bool {
+// union returns a new set union of s1 and s2 (elements contained in both sets)
+func union(s1, s2 map[rune]bool) map[rune]bool {
 	u := make(map[rune]bool)
-	for k := range m2 {
-		if _, found := m1[k]; found {
+	for k := range s2 {
+		if _, found := s1[k]; found {
 			u[k] = true
 		}
 	}
