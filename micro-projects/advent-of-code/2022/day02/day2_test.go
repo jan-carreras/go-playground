@@ -6,7 +6,7 @@ import (
 	"testing"
 )
 
-func TestDay2Part1(t *testing.T) {
+func TestPart1(t *testing.T) {
 	f, err := os.Open("input.txt")
 	require.NoError(t, err)
 
@@ -16,7 +16,7 @@ func TestDay2Part1(t *testing.T) {
 	require.Equal(t, 13052, score)
 }
 
-func TestDay2Part2(t *testing.T) {
+func TestPart2(t *testing.T) {
 	f, err := os.Open("input.txt")
 	require.NoError(t, err)
 
