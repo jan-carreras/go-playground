@@ -1,0 +1,3 @@
+zsh: permission denied: ./allocDetect
+./allocDetect: line 1: syntax error near unexpected token `newline'
+./allocDetect: line 1: `!<arch>'

@@ -1,0 +1,212 @@
+package twobucket
+
+import (
+	"errors"
+	"fmt"
+)
+
+var ErrInvalidStartingBucket = errors.New("invalid starting bucket")
+var ErrInvalidCapacity = errors.New("invalid capacity")
+var ErrInvalidGoalAmount = errors.New("invalid goal amount")
+var ErrInvalidOperation = errors.New("invalid operation")
+
+type Movements map[string]bool
+
+func (m Movements) Visited(b1, b2 *Bucket) bool {
+	key := b1.String() + " " + b2.String()
+	_, ok := m[key]
+	return ok
+}
+
+func (m Movements) Record(b1, b2 *Bucket) {
+	key := b1.String() + " " + b2.String()
+	m[key] = true
+}
+
+type Bucket struct {
+	Name  string
+	Value int
+	Cap   int
+}
+
+func (b *Bucket) isFull() bool {
+	return b.Value == b.Cap
+}
+
+func (b *Bucket) isEmpty() bool {
+	return b.Value == 0
+}
+
+func (b *Bucket) Fill() error {
+	if b.isFull() {
+		return ErrInvalidOperation // Already full
+	}
+	b.Value = b.Cap
+	return nil
+}
+
+func (b *Bucket) Empty() error {
+	if b.isEmpty() {
+		return ErrInvalidOperation // Already empty
+	}
+	b.Value = 0
+	return nil
+}
+
+func (b *Bucket) add(amount int) error {
+	if b.Value+amount > b.Cap {
+		return ErrInvalidOperation
+	}
+	b.Value += amount
+	return nil
+}
+
+func (b *Bucket) sub(amount int) error {
+	if b.Value-amount < 0 {
+		return ErrInvalidOperation
+	}
+	b.Value -= amount
+	return nil
+}
+
+func (b *Bucket) Transfer(other *Bucket) error {
+	if other.isFull() {
+		return ErrInvalidOperation // Other is empty
+	}
+
+	if b.isEmpty() {
+		return ErrInvalidOperation // I'm empty, nothing to transfer
+	}
+
+	movedWater := other.Cap - other.Value
+	if b.Value < movedWater {
+		movedWater = b.Value
+	}
+
+	if err := b.sub(movedWater); err != nil {
+		return err
+	}
+
+	if err := other.add(movedWater); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (b *Bucket) String() string {
+	return fmt.Sprintf("%s: %d/%d", b.Name, b.Value, b.Cap)
+}
+
+func NewBucket(name string, cap int) (*Bucket, error) {
+	if cap <= 0 {
+		return nil, ErrInvalidCapacity
+	}
+	return &Bucket{
+		Name: name,
+		Cap:  cap,
+	}, nil
+}
+
+func Solve(sizeBucketOne, sizeBucketTwo, goalAmount int, startBucket string) (goalBucket string, numSteps, otherBucketLevel int, err error) {
+	// Sanity checks
+	if goalAmount <= 0 || (goalAmount > sizeBucketOne && goalAmount > sizeBucketTwo) {
+		return "", 0, 0, ErrInvalidGoalAmount
+	}
+
+	b1, b2, err := initializeBuckets(sizeBucketOne, sizeBucketTwo, startBucket)
+	if err != nil {
+		return "", 0, 0, err
+	}
+
+	switch startBucket {
+	case "one":
+		b1.Fill()
+	case "two":
+		b2.Fill()
+	default:
+		err = ErrInvalidStartingBucket
+		return
+	}
+
+	movements := make(Movements)
+	numSteps++
+
+	nextMovements(movements, b1, b2)
+
+	return goalBucket, numSteps, otherBucketLevel, err
+
+}
+
+func Solve2(sizeBucketOne, sizeBucketTwo, goalAmount int, startBucket string) (goalBucket string, numSteps, otherBucketLevel int, err error) {
+	// Sanity checks
+	if goalAmount <= 0 || (goalAmount > sizeBucketOne && goalAmount > sizeBucketTwo) {
+		return "", 0, 0, ErrInvalidGoalAmount
+	}
+
+	b1, b2, err := initializeBuckets(sizeBucketOne, sizeBucketTwo, startBucket)
+	if err != nil {
+		return "", 0, 0, err
+	}
+
+	switch startBucket {
+	case "one":
+		b1.Fill()
+	case "two":
+		b2.Fill()
+	default:
+		err = ErrInvalidStartingBucket
+		return
+	}
+
+	movements := make(Movements)
+	numSteps++
+
+	nextMovements(movements, b1, b2)
+
+	return goalBucket, numSteps, otherBucketLevel, err
+
+}
+
+func nextMovements(movements Movements, b1 *Bucket, b2 *Bucket) {
+	fmt.Println(movements)
+	if movements.Visited(b1, b2) {
+		return
+	}
+	movements.Record(b1, b2)
+
+	if b := b1; b.Empty() != nil {
+		nextMovements(movements, b, b2)
+	}
+	if b := b1; b.Fill() != nil {
+		nextMovements(movements, b, b2)
+	}
+
+	if b := b1; b.Transfer(b2) != nil {
+		nextMovements(movements, b, b2)
+	}
+
+	if b := b2; b.Empty() != nil {
+		nextMovements(movements, b1, b)
+	}
+	if b := b2; b.Fill() != nil {
+		nextMovements(movements, b1, b)
+	}
+
+	if b := b2; b.Transfer(b2) != nil {
+		nextMovements(movements, b1, b)
+	}
+
+}
+
+func initializeBuckets(sizeBucketOne int, sizeBucketTwo int, startBucket string) (*Bucket, *Bucket, error) {
+	b1, err := NewBucket("one", sizeBucketOne)
+	if err != nil {
+		return nil, nil, err
+
+	}
+	b2, err := NewBucket("two", sizeBucketTwo)
+	if err != nil {
+		return nil, nil, err
+	}
+	return b1, b2, nil
+}
