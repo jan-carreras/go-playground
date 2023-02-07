@@ -15,5 +15,4 @@ func SearchInts(tree []int, search int) int {
 	}
 
 	return -1
-
 }

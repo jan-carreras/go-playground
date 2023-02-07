@@ -1,6 +1,15 @@
 package atbash
 
-import "testing"
+import (
+	"fmt"
+	"testing"
+)
+
+func Test(t *testing.T) {
+	fmt.Println(Atbash("OMG"))
+	fmt.Println(Atbash("O M G"))
+	fmt.Println(Atbash("mindblowingly"))
+}
 
 func TestAtbash(t *testing.T) {
 	for _, tc := range testCases {
