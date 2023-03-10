@@ -1,0 +1,82 @@
+package main
+
+import (
+	"encoding/json"
+	"fmt"
+	"io"
+	"strings"
+)
+
+type pair struct {
+	left  string
+	right string
+}
+
+func (p pair) String() string {
+	return fmt.Sprintf("left: %v\nright: %v\n\n", p.left, p.right)
+}
+
+func isOrderRight(p pair) bool {
+	l, r := unmarshal(p.left), unmarshal(p.right)
+	return cmp(l, r) <= 0
+}
+
+func cmp(left, right any) int {
+	l, lok := left.([]any)
+	r, rok := right.([]any)
+
+	switch {
+	case !lok && !rok:
+		return int(left.(float64) - right.(float64))
+	case !lok:
+		l = []any{left}
+	case !rok:
+		r = []any{right}
+	}
+
+	for i := 0; i < len(l) && i < len(r); i++ {
+		if res := cmp(l[i], r[i]); res != 0 {
+			return res
+		}
+	}
+
+	return len(l) - len(r)
+}
+
+func unmarshal(line string) (decoded any) {
+	json.Unmarshal([]byte(line), &decoded)
+	return decoded
+}
+
+func part1(input io.Reader) error {
+	// Parse the input in pairs, assigning an index to each pair
+	pairs, err := parse(input)
+	if err != nil {
+		return err
+	}
+
+	sum := 0
+	for index, p := range pairs {
+		if isOrderRight(p) {
+			sum += (index + 1)
+		}
+	}
+
+	fmt.Println("What is the sum of the indices of those pairs?", sum)
+	return nil
+}
+
+func parse(input io.Reader) ([]pair, error) {
+	raw, err := io.ReadAll(input)
+	if err != nil {
+		return nil, err
+	}
+
+	lines := strings.Split(string(raw), "\n")
+	pairs := make([]pair, 0)
+	for i := 0; i < len(lines); i += 3 {
+		pairs = append(pairs, pair{left: lines[i], right: lines[i+1]})
+	}
+
+	return pairs, nil
+}
